@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#cy {
+    width: 1600px;
+    height: 600px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+
+}

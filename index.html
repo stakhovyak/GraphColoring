@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгоритмы раскраски графов</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Алгоритмы раскраски графов</h1>
+
+    <div>
+        <label for="algorithm">Выберите алгоритм раскраски:</label>
+        <select id="algorithm">
+            <option value="greedy">Жадный</option>
+            <option value="welsh">Уэлша-Пауэлла</option>
+            <option value="dsatur">DSatur</option>
+        </select>
+        <button id="generateGraph">Генерировать граф</button>
+    </div>
+
+    <div id="cy"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.19.1/cytoscape.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
