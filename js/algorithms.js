@@ -1,14 +1,27 @@
+export const coloringAlgorithms = {
+    "Greedy": greedyColoring,
+    "Welsh Powell": welshPowellColoring,
+    "DSatur": dsaturColoring,
+}
+
+export const coloringAlgorithmsOptions = Object.keys(coloringAlgorithms);
+
+export const coloringAlgorithmsDescriptions = {
+    "Greedy": "Greedy coloring algorithm",
+    "Welsh Powell": "Welsh Powell coloring algorithm",
+    "DSatur": "DSatur coloring algorithm",
+}
+
 export function greedyColoring(graph) {
+
     const colors = {};
     const nodes = graph.nodes;
 
-  
     nodes.sort((a, b) => {
         return graph.edges.filter(edge => edge.data.source === a.data.id || edge.data.target === a.data.id).length
             - graph.edges.filter(edge => edge.data.source === b.data.id || edge.data.target === b.data.id).length;
     });
 
-
     nodes.forEach(node => {
         const availableColors = new Set([0, 1, 2, 3, 4, 5]);
         graph.edges.forEach(edge => {
@@ -19,26 +32,22 @@ export function greedyColoring(graph) {
                 availableColors.delete(colors[edge.data.source]);
             }
         });
-       
         colors[node.data.id] = Math.min(...[...availableColors]);
     });
 
     return colors;
 }
-
 
 export function welshPowellColoring(graph) {
     const colors = {};
     const nodes = graph.nodes;
 
- 
     nodes.sort((a, b) => {
         const degreeA = graph.edges.filter(edge => edge.data.source === a.data.id || edge.data.target === a.data.id).length;
         const degreeB = graph.edges.filter(edge => edge.data.source === b.data.id || edge.data.target === b.data.id).length;
-        return degreeB - degreeA; 
+        return degreeB - degreeA;
     });
 
- 
     nodes.forEach(node => {
         const availableColors = new Set([0, 1, 2, 3, 4, 5]);
         graph.edges.forEach(edge => {
@@ -54,20 +63,18 @@ export function welshPowellColoring(graph) {
 
     return colors;
 }
-
 
 export function dsaturColoring(graph) {
     const colors = {};
     const nodes = graph.nodes;
-    const saturation = {}; 
+    const saturation = {};
 
     nodes.forEach(node => saturation[node.data.id] = 0);
 
-   
     nodes.sort((a, b) => {
         const degreeA = graph.edges.filter(edge => edge.data.source === a.data.id || edge.data.target === a.data.id).length;
         const degreeB = graph.edges.filter(edge => edge.data.source === b.data.id || edge.data.target === b.data.id).length;
-        return degreeB - degreeA; 
+        return degreeB - degreeA;
     });
 
     nodes.forEach(node => {
@@ -87,3 +94,4 @@ export function dsaturColoring(graph) {
 
     return colors;
 }
+
