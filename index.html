@@ -12,9 +12,9 @@
     <div>
         <label for="algorithm">Выберите алгоритм раскраски:</label>
         <select id="algorithm">
-            <option value="Greedy">Жадный</option>
-            <option value="Welsh Powell">Уэлша-Пауэлла</option>
-            <option value="DSatur">DSatur</option>
+            <option value="greedy">Жадный</option>
+            <option value="welsh">Уэлша-Пауэлла</option>
+            <option value="dsatur">DSatur</option>
         </select>
         <label for="density">Плотность графа:</label>
         <input type="number" id="density" min="0" max="1" step="0.1" value="0.5">
@@ -58,6 +58,7 @@
 
         document.getElementById('generateGraph').addEventListener('click', () => {
             const density = parseFloat(document.getElementById('density').value);
+            console.log(`Generating graph with density: ${density}`);
             graph = generatePlanarGraph(density);
 
             const elements = [
@@ -77,11 +78,14 @@
             }
 
             const algorithm = document.getElementById('algorithm').value;
+            console.log(`Applying ${algorithm} coloring algorithm`);
             const colors = coloringAlgorithms[algorithm](graph);
+            console.log('Colors:', colors);
 
             graph.nodes.forEach(node => {
                 const colorIndex = colors[node.data.id];
-                const color = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f'][colorIndex] || '#666';
+                const color = `hsl(${(colorIndex || 0) * 60}, 100%, 50%)`;
+                console.log(`Node ${node.data.id} color: ${color}`);
                 cy.getElementById(node.data.id).style('background-color', color);
             });
         });
